@@ -1,4 +1,55 @@
-<?php if(Mage::getStoreConfig('dev/developertoolbar/enabled')): ?>
+<?php
+	$getConfigCustomer = Mage::getStoreConfig('dev/developertoolbar/enablename');
+	$getCustomer = Mage::getSingleton('customer/customer')->load(Mage::getSingleton('customer/session')->getId())->getEmail();
+	$getCustomerArray = explode(",",$getConfigCustomer);
+	
+	$getConfigIp = Mage::getStoreConfig('dev/developertoolbar/enableip');
+	$getIp = $_SERVER["REMOTE_ADDR"];
+	$getIprArray = explode(",",$getConfigIp);
+	
+	$getConfigIp==""?$checkip=false:$checkip=true;
+	$enablename = false;
+	for($i=0;$i<sizeof($getCustomerArray);$i++)
+	{		
+		if($getCustomer == trim($getCustomerArray[$i]))	
+		{
+			$enablename = true;
+			break;		
+		}		
+	}
+	
+	$getConfigCustomer==""?$checkcustomer=false:$checkcustomer=true;
+	
+	$enableip = false;
+	for($i=0;$i<sizeof($getIprArray);$i++)
+	{		
+		if($getIp == trim($getIprArray[$i]))	
+		{
+			$enableip = true;
+			break;		
+		}		
+	}
+	$case=false;
+	if(!$checkip && !$checkcustomer && Mage::getStoreConfig('dev/developertoolbar/enabled')) $case=true;
+	
+	if($checkip && !$checkcustomer)
+	{
+		if(Mage::getStoreConfig('dev/developertoolbar/enabled') && $enableip) $case=true;
+	}
+	else if(!$checkip && $checkcustomer)
+	{
+		if(Mage::getStoreConfig('dev/developertoolbar/enabled') && $enablename) $case=true;
+	}
+	else if($checkip && $checkcustomer)
+	{
+		if(((Mage::getStoreConfig('dev/developertoolbar/enabled') && $enablename)) && ((Mage::getStoreConfig('dev/developertoolbar/enabled') && $enableip))) $case =true;
+	}
+		
+	if(!$case){
+		exit;
+	}else{
+	
+	?>
 <style>
 .developertoolbar {
 	position: fixed;
@@ -60,6 +111,7 @@ function hide_developer_toolbar(){
 	}	
 }
 </script>
+
 <div class="developertoolbar" id="developertoolbar">
 	<a href="" onclick="hide_developer_toolbar(); return false;"><span class="bar_name">Developer Toolbar</span></a>
 	
@@ -89,4 +141,4 @@ function hide_developer_toolbar(){
 		<a style="color:#FF0000;" href="<?php echo $this->getUrl('developertoolbar/index/cache/') ?>">Clean & Disable All Cache</a>
 	</span>
 </div>
-<?php endif; ?>
+<?php } ?>
