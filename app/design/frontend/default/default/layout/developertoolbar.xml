@@ -2,6 +2,11 @@
 <layout version="0.1.0">
 
     <default>			
+    	<reference name="head">
+    	<action method="addCss"><stylesheet>css/developertoolbar/theme/tinyTips.css</stylesheet></action> 
+    	<action method="addItem"><type>skin_js</type><script>js/developertoolbar/jquery-1.3.1.min.js</script></action>
+    	<action method="addItem"><type>skin_js</type><script>js/developertoolbar/jquery.tinyTips.js</script></action> 
+    	</reference>
 		<reference name="before_body_end">
 			<block type="core/template" name="developertoolbar" template="developertoolbar/toolbar.phtml">
 			</block>

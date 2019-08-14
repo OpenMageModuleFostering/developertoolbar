@@ -76,7 +76,7 @@ class HM_DeveloperToolbar_IndexController extends Mage_Core_Controller_Front_Act
 			$scope = 'stores';
 			$scope_id = Mage::app()->getStore()->getStoreId();
 			$enabled = $this->getRequest()->getParam('enabled');
-			Mage::getConfig()->saveConfig('dev/log/active', $enabled, $scope, $scope_id); 
+			Mage::getConfig()->saveConfig('dev/log/active', $enabled, $scope, $scope_id);
 			$this->_redirectReferer();
 		}
     }
@@ -91,8 +91,6 @@ class HM_DeveloperToolbar_IndexController extends Mage_Core_Controller_Front_Act
 			$scope_id = Mage::app()->getStore()->getStoreId();
 			$enabled = $this->getRequest()->getParam('enabled');	
 			Mage::getConfig()->saveConfig('dev/js/merge_files', $enabled, $scope, $scope_id);
-	    	if(!Mage::getStoreConfig('dev/js/merge_files') || !Mage::getStoreConfig('dev/developertoolbar/enabled'))
-			$this->_forward('noRoute'); 		
 			$this->_redirectReferer();
 		}
     }
@@ -104,8 +102,6 @@ class HM_DeveloperToolbar_IndexController extends Mage_Core_Controller_Front_Act
 		else{ 
 			$enabled = $this->getRequest()->getParam('enabled');
 			Mage::getConfig()->saveConfig('web/url/use_store', $enabled);
-	    	if(!Mage::getStoreConfig('web/url/use_store') || !Mage::getStoreConfig('dev/developertoolbar/enabled'))
-			$this->_forward('noRoute');  		
 			$this->_redirectReferer();
 		}
     }
@@ -117,8 +113,6 @@ class HM_DeveloperToolbar_IndexController extends Mage_Core_Controller_Front_Act
 		else{ 
 			$enabled = $this->getRequest()->getParam('enabled');	
 			Mage::getConfig()->saveConfig('web/seo/use_rewrites', $enabled);
-	    	if(!Mage::getStoreConfig('web/seo/use_rewrites') || !Mage::getStoreConfig('dev/developertoolbar/enabled'))
-			$this->_forward('noRoute');		
 			$this->_redirectReferer();
 		}
     }
@@ -132,8 +126,6 @@ class HM_DeveloperToolbar_IndexController extends Mage_Core_Controller_Front_Act
 			$scope_id = Mage::app()->getStore()->getStoreId();
 			$enabled = $this->getRequest()->getParam('enabled');	
 			Mage::getConfig()->saveConfig('dev/translate_inline/active', $enabled, $scope, $scope_id);
-	    	if(!Mage::getStoreConfig('dev/translate_inline/active') || !Mage::getStoreConfig('dev/developertoolbar/enabled'))
-			$this->_forward('noRoute'); 		
 			$this->_redirectReferer();
 		}
     }
@@ -149,9 +141,7 @@ class HM_DeveloperToolbar_IndexController extends Mage_Core_Controller_Front_Act
 	        foreach ($cacheTypes as $type) {            
 	            $enable[$type] = 0;            		
 	        }
-			Mage::app()->saveUseCache($enable);		
-	    	if(!Mage::getStoreConfig('dev/developertoolbar/enabled'))
-			$this->_forward('noRoute');				
+			Mage::app()->saveUseCache($enable);				
 			$this->_redirectReferer();
 		}
     }

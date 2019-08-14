@@ -48,9 +48,12 @@
 	if(!$case){
 		exit;
 	}else{
+		$show_enable = "disable";
+		$show_disable = "enable";
 	
 	?>
 <style>
+
 .developertoolbar {
 	position: fixed;
 	left: 0px;
@@ -98,6 +101,8 @@
 .developertoolbar .disabled {
 	color: #666;
 }
+#cloud1 {top: 93px; left: 230px;}
+.tTip {  cursor: pointer; color: #666; font-weight: bold;}
 </style>
 
 <script language="javascript">
@@ -111,34 +116,98 @@ function hide_developer_toolbar(){
 	}	
 }
 </script>
+<script type="text/javascript"><!--
+	var check = true;
+	processKeyEvent = function(eventType, event)
+	{
+		if(event.ctrlKey && event.altKey)
+		{
+			switch(event.which){
+			case 49:
+				if(check==true)
+				{
+					document.getElementById("developertoolbar").style.display = "none";
+					check = false;			
+				}
+				else
+				{
+					document.getElementById("developertoolbar").style.display = "block";
+					check = true;
+				}
+				
+				break;
+				
+			case 50:
+				window.location = document.getElementById("template_hints");
+				break;
+			case 51:
+				window.location = document.getElementById("template_hints_");
+				break;
+			case 52:
+				window.location = document.getElementById("log");
+				break;
+			case 53:
+				window.location = document.getElementById("merge_files");
+				break;
+			case 54:
+				window.location = document.getElementById("use_store");
+				break;		
+			case 55:
+				window.location = document.getElementById("use_rewrites");
+				break;							
+			case 56:
+				window.location = document.getElementById("translate_inline");
+				break;
+			case 57:
+				window.location = document.getElementById("cache");
+				break;	
+			}
+	
+		}		
+	};
+	
+	processKeyDown = function(event)
+	{
 
+		processKeyEvent("onkeydown", event);
+	};
+	window.onkeydown=processKeyDown; 
+	
+	
+	
+</script>
 <div class="developertoolbar" id="developertoolbar">
 	<a href="" onclick="hide_developer_toolbar(); return false;"><span class="bar_name">Developer Toolbar</span></a>
 	
 	
 	<span id="bar_content">
-		<a <?php if (Mage::getStoreConfig('dev/debug/template_hints') != '1') echo ' class="disabled "'; ?> href="<?php echo $this->getUrl('developertoolbar/index/hints/enabled/'.(Mage::getStoreConfig('dev/debug/template_hints')!='1'?1:0).'/type/front') ?>">Frontend Hints</a>	
-		
+
+		<a id="template_hints" <?php if (Mage::getStoreConfig('dev/debug/template_hints') != '1') {echo 'class="show_info disabled"'; echo 'title="'.$show_enable.'"';} else {echo 'class="show_info"';echo 'title="'.$show_disable.'"';} ?> href="<?php echo $this->getUrl('developertoolbar/index/hints/enabled/'.(Mage::getStoreConfig('dev/debug/template_hints')!='1'?1:0).'/type/front') ?>">Frontend Hints</a>			
 		<span class="seperate"></span>
-		<a <?php if (Mage::getStoreConfig('dev/debug/template_hints', 0) != '1') echo ' class="disabled "'; ?> href="<?php echo $this->getUrl('developertoolbar/index/hints/enabled/'.(Mage::getStoreConfig('dev/debug/template_hints', 0)!='1'?1:0).'/type/back') ?>">Backend Hints</a>	
+		<a id="template_hints_"  <?php if (Mage::getStoreConfig('dev/debug/template_hints', 0) != '1'){echo 'class="show_info disabled"'; echo 'title="'.$show_enable.'"';} else {echo 'class="show_info"';echo 'title="'.$show_disable.'"';} ?> href="<?php echo $this->getUrl('developertoolbar/index/hints/enabled/'.(Mage::getStoreConfig('dev/debug/template_hints', 0)!='1'?1:0).'/type/back') ?>">Backend Hints</a>	
 		
 		<span class="seperate"></span>	
-		<a <?php if (Mage::getStoreConfig('dev/log/active') != '1') echo ' class="disabled "'; ?> href="<?php echo $this->getUrl('developertoolbar/index/log/enabled/'.(Mage::getStoreConfig('dev/log/active')!='1'?1:0)) ?>">Logs</a>
+		<a id="log" <?php if (Mage::getStoreConfig('dev/log/active') != '1'){echo 'class="show_info disabled"'; echo 'title="'.$show_enable.'"';} else {echo 'class="show_info"';echo 'title="'.$show_disable.'"';} ?> href="<?php echo $this->getUrl('developertoolbar/index/log/enabled/'.(Mage::getStoreConfig('dev/log/active')!='1'?1:0)) ?>">Logs</a>
 		
 		<span class="seperate"></span>
-		<a <?php if (Mage::getStoreConfig('dev/js/merge_files') != '1') echo ' class="disabled "'; ?> href="<?php echo $this->getUrl('developertoolbar/index/js/enabled/'.(Mage::getStoreConfig('dev/js/merge_files')!='1'?1:0)) ?>">Merge JS</a>	
+		<a id="merge_files" <?php if (Mage::getStoreConfig('dev/js/merge_files') != '1'){echo 'class="show_info disabled"'; echo 'title="'.$show_enable.'"';} else {echo 'class="show_info"';echo 'title="'.$show_disable.'"';} ?> href="<?php echo $this->getUrl('developertoolbar/index/js/enabled/'.(Mage::getStoreConfig('dev/js/merge_files')!='1'?1:0)) ?>">Merge JS</a>	
 		
 		<span class="seperate"></span>
-		<a <?php if (Mage::getStoreConfig('web/url/use_store') != '1') echo ' class="disabled "'; ?> href="<?php echo $this->getUrl('developertoolbar/index/url/enabled/'.(Mage::getStoreConfig('web/url/use_store')!='1'?1:0)) ?>">Store Code in Urls</a>
+		<a id="use_store" <?php if (Mage::getStoreConfig('web/url/use_store') != '1'){echo 'class="show_info disabled"'; echo 'title="'.$show_enable.'"';} else {echo 'class="show_info"';echo 'title="'.$show_disable.'"';} ?> href="<?php echo $this->getUrl('developertoolbar/index/url/enabled/'.(Mage::getStoreConfig('web/url/use_store')!='1'?1:0)) ?>">Store Code in Urls</a>
 		
 		<span class="seperate"></span>
-		<a <?php if (Mage::getStoreConfig('web/seo/use_rewrites') != '1') echo ' class="disabled "'; ?> href="<?php echo $this->getUrl('developertoolbar/index/seo/enabled/'.(Mage::getStoreConfig('web/seo/use_rewrites')!='1'?1:0)) ?>">SEO Rewrites</a>
+		<a id="use_rewrites" <?php if (Mage::getStoreConfig('web/seo/use_rewrites') != '1'){echo 'class="show_info disabled"'; echo 'title="'.$show_enable.'"';} else {echo 'class="show_info"';echo 'title="'.$show_disable.'"';} ?> href="<?php echo $this->getUrl('developertoolbar/index/seo/enabled/'.(Mage::getStoreConfig('web/seo/use_rewrites')!='1'?1:0)) ?>">SEO Rewrites</a>
 		
 		<span class="seperate"></span>
-		<a <?php if (Mage::getStoreConfig('dev/translate_inline/active') != '1') echo ' class="disabled "'; ?> href="<?php echo $this->getUrl('developertoolbar/index/translate/enabled/'.(Mage::getStoreConfig('dev/translate_inline/active')!='1'?1:0)) ?>">Translate Inline</a>
+		<a id="translate_inline" <?php if (Mage::getStoreConfig('dev/translate_inline/active') != '1'){echo 'class="show_info disabled"'; echo 'title="'.$show_enable.'"';} else {echo 'class="show_info"';echo 'title="'.$show_disable.'"';} ?> href="<?php echo $this->getUrl('developertoolbar/index/translate/enabled/'.(Mage::getStoreConfig('dev/translate_inline/active')!='1'?1:0)) ?>">Translate Inline</a>
 		
 		<span class="seperate"></span>
-		<a style="color:#FF0000;" href="<?php echo $this->getUrl('developertoolbar/index/cache/') ?>">Clean & Disable All Cache</a>
+		<a id="cache" title="Clean & Disable All Cache" class="show_info" style="color:#FF0000;" href="<?php echo $this->getUrl('developertoolbar/index/cache/') ?>">Clean & Disable All Cache</a>
 	</span>
 </div>
 <?php } ?>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.show_info').tinyTips('title');	
+	});
+</script>
