@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/DeveloperToolbar",
+    "name": "OpenMageModuleFostering\/DeveloperToolbar",
     "type": "magento-module",
     "license": "Open-Software-License-(OSL)",
     "homepage": "",
     "description": "A must have extension of Magento Developer",
     "authors": [
-    {
-        "name": "Hai NGUYEN",
-        "email": "haint@mage-world.com"
-    }
-],
+        {
+            "name": "Hai NGUYEN",
+            "email": "haint@mage-world.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
