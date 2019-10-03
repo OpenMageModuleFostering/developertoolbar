@@ -1,7 +1,7 @@
 {
-    "name": "OpenMageModuleFostering\/DeveloperToolbar",
+    "name": "openmage-module-fostering\/developertoolbar",
     "type": "magento-module",
-    "license": "Open-Software-License-(OSL)",
+    "license": "OSL-3.0",
     "homepage": "",
     "description": "A must have extension of Magento Developer",
     "authors": [
